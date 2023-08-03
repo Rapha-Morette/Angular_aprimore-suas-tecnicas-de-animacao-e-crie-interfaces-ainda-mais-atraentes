@@ -23,7 +23,7 @@ import {
     checkButtonTrigger,
     filterTrigger,
     formButtonTrigger,
-    flyInOutTrigger
+    flyInOutTrigger,
   ],
 })
 export class ListaTarefasComponent implements OnInit {
@@ -34,7 +34,7 @@ export class ListaTarefasComponent implements OnInit {
   indexTarefa: number = -1;
   id: number = 0;
   campoBusca: string = '';
-  tarefasFiltradas: Tarefa[] = []
+  tarefasFiltradas: Tarefa[] = [];
 
   formulario: FormGroup = this.fomBuilder.group({
     id: [0],
@@ -58,12 +58,14 @@ export class ListaTarefasComponent implements OnInit {
     return this.tarefasFiltradas;
   }
 
-  filtrarTarefasPorDescriccao(descricao: string){
-    this.campoBusca = descricao.trim().toLowerCase()
-    if(descricao) {
-      this.tarefasFiltradas = this.listaTarefas.filter(tarefa => tarefa.descricao.toLowerCase().includes(this.campoBusca))
+  filtrarTarefasPorDescriccao(descricao: string) {
+    this.campoBusca = descricao.trim().toLowerCase();
+    if (descricao) {
+      this.tarefasFiltradas = this.listaTarefas.filter((tarefa) =>
+        tarefa.descricao.toLowerCase().includes(this.campoBusca)
+      );
     } else {
-      this.tarefasFiltradas = this.listaTarefas
+      this.tarefasFiltradas = this.listaTarefas;
     }
   }
 

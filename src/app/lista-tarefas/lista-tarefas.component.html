@@ -46,7 +46,7 @@
     </app-mensagem>
     <div class="botoes-form">
       <button
-        [@formButton]="formulario.valid ? 'valid' : 'invalid' "
+        [@formButton]="formulario.valid ? 'valid' : 'invalid'"
         id="botão-salvar"
         (click)="salvarTarefa()"
         class="botao-form"
@@ -130,5 +130,7 @@
   </div>
 </section>
 <ng-template #semTarefas>
-  <p @flyInOut class="ng-template ff-prompt">Olá! Ainda não há tarefas por aqui! :)</p>
+  <p @flyInOut class="ng-template ff-prompt">
+    Olá! Ainda não há tarefas por aqui! :)
+  </p>
 </ng-template>

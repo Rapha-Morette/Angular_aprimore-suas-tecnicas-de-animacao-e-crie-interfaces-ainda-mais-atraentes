@@ -11,6 +11,7 @@ import {
   highlightedStateTrigger,
   shakeTrigger,
   shownStateTrigger,
+  listStateTrigger,
 } from '../animations';
 import { Subscription } from 'rxjs';
 
@@ -25,7 +26,8 @@ import { Subscription } from 'rxjs';
     filterTrigger,
     formButtonTrigger,
     flyInOutTrigger,
-    shakeTrigger
+    shakeTrigger,
+    listStateTrigger
   ],
 })
 export class ListaTarefasComponent implements OnInit {
@@ -37,7 +39,8 @@ export class ListaTarefasComponent implements OnInit {
   id: number = 0;
   campoBusca: string = '';
   tarefasFiltradas: Tarefa[] = [];
-  tarefasSubscription: Subscription = new Subscription()
+  tarefasSubscription: Subscription = new Subscription();
+  estadoBotao: string = 'unchecked';
 
   formulario: FormGroup = this.fomBuilder.group({
     id: [0],
@@ -53,11 +56,11 @@ export class ListaTarefasComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.service.listar()
-    this.tarefasSubscription = this.service.tarefas$.subscribe(tarefas => {
+    this.service.listar();
+    this.tarefasSubscription = this.service.tarefas$.subscribe((tarefas) => {
       this.listaTarefas = tarefas;
       this.tarefasFiltradas = tarefas;
-    })
+    });
   }
 
   filtrarTarefasPorDescriccao(descricao: string) {
@@ -85,24 +88,24 @@ export class ListaTarefasComponent implements OnInit {
   }
 
   editarTarefa() {
-    if(this.formulario.valid) {
-      const tarefaEditada = this.formulario.value
-      this.service.editar(tarefaEditada, true)
-      this.resetarFormulario()
+    if (this.formulario.valid) {
+      const tarefaEditada = this.formulario.value;
+      this.service.editar(tarefaEditada, true);
+      this.resetarFormulario();
     }
   }
 
   criarTarefa() {
-    if(this.formulario.valid) {
-      const novaTarefa = this.formulario.value
-      this.service.criar(novaTarefa)
-      this.resetarFormulario()
+    if (this.formulario.valid) {
+      const novaTarefa = this.formulario.value;
+      this.service.criar(novaTarefa);
+      this.resetarFormulario();
     }
   }
 
   excluirTarefa(id: number): void {
     if (id) {
-      this.service.excluir(id)
+      this.service.excluir(id);
     }
   }
 
@@ -135,7 +138,13 @@ export class ListaTarefasComponent implements OnInit {
 
   finalizarTarefa(tarefa: Tarefa) {
     this.id = tarefa.id;
-    this.service.atualizarStatusTarefa(tarefa)
+    this.service.atualizarStatusTarefa(tarefa);
+
+    if (tarefa.statusFinalizado == true) {
+      this.estadoBotao = 'checked';
+    } else {
+      this.estadoBotao = 'unchecked';
+    }
   }
 
   habilitarBotao(): string {

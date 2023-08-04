@@ -26,7 +26,7 @@ import { MensagemComponent } from './componentes/mensagem/mensagem.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    NoopAnimationsModule
+    // NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
